@@ -11,7 +11,7 @@ class SessionHistory {
     this.startAt,
     this.endAt,
     this.isOngoing,
-    this.jpegLocation,
+    // this.jpegLocation,
     this.name,
   );
 
@@ -20,9 +20,9 @@ class SessionHistory {
         startAt = json['start_at'] as String,
         endAt = json['end_at'] == null ? "" : json["end_at"] as String,
         isOngoing = json['is_ongoing'] as bool,
-        jpegLocation = json['jpeg_location'] == null
-            ? ""
-            : json["jpeg_location"] as String,
+        // jpegLocation = json['jpeg_location'] == null
+        //     ? ""
+        //     : json["jpeg_location"] as String,
         name = json['name'] == null
             ? "Session #${json['id']}"
             : json["name"] as String;

@@ -100,8 +100,8 @@ class DetailHistoryState extends State<DetailHistoryPage> {
                 );
               }
               return const Center(
-                child: CircularProgressIndicator(),
-              );
+                  // child: CircularProgressIndicator(),
+                  );
             }));
   }
 }

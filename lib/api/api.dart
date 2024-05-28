@@ -7,6 +7,7 @@ import 'package:coba/class/session_history.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 Future<String> login(String username, String password) async {
   final response = await http.post(
@@ -55,6 +56,12 @@ Future<bool> logout() async {
     return false;
     // throw Exception('Failed to login.');
   }
+}
+
+Future<WebSocketChannel> connectSession(sessionId) async {
+  final WebSocketChannel channel =
+      WebSocketChannel.connect(Uri.parse('${apiUrl}ws/video/$sessionId'));
+  return channel;
 }
 
 Future<Session> startSession() async {

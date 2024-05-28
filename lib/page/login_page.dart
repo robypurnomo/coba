@@ -22,9 +22,13 @@ class LoginState extends State<LoginPage> {
       print(_usernameController.text);
       print(_passController.text);
     }
-    Future<String> token = login("user1", "CliBBQ17Sm7PIQ7");
+    // Future<String> token = login("user1", "CliBBQ17Sm7PIQ7");
+    Future<String> token = login("averrous", "123456");
+    // Future<String> token =
+    //     login(_usernameController.text, _passController.text);
     token.then((val) {
-      user = User("user1", val);
+      // user = User(_usernameController.text, val);
+      user = User("averrous", val);
       if (kDebugMode) {
         print(val);
       }

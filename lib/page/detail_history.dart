@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:coba/class/session_chunk_history.dart';
 import 'package:video_player/video_player.dart';
+import 'package:coba/variables/api_key.dart';
 
 class DetailHistoryPage extends StatefulWidget {
   final int sessionId;
@@ -71,7 +72,7 @@ class DetailHistoryState extends State<DetailHistoryPage> {
                                         videoPlayerController:
                                             VideoPlayerController.networkUrl(
                                                 Uri.parse(
-                                                    ("https://186c-104-28-218-132.ngrok-free.app/static/${snapshot.data![index].videoUrl}")))),
+                                                    ("${apiUrl}static/${snapshot.data![index].videoUrl}")))),
                                   ),
                                 ),
                                 const Padding(

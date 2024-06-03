@@ -169,6 +169,10 @@ Future<List<SessionHistory>> getSessionList() async {
 }
 
 Future<List<SessionChunk>> getSessionChunkList(int sessionId) async {
+  if (kDebugMode) {
+    print("getting session chunk...");
+  }
+
   final response = await http.post(
     Uri.parse('${apiUrl}session_chunk_list/'),
     headers: <String, String>{

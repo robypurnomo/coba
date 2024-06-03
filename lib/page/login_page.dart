@@ -1,13 +1,15 @@
 import 'package:coba/api/api.dart';
+import 'package:coba/main.dart';
+// import 'package:coba/main.dart';
 import 'package:coba/variables/globals.dart';
 import 'package:coba/class/user.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
-  final PageController controller;
-  final Function(bool) updateLogin;
-  const LoginPage(this.updateLogin, this.controller, {super.key});
+  // final PageController controller;
+  // final Function(bool) updateLogin;
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => LoginState();
@@ -17,23 +19,36 @@ class LoginState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
   void signin() {
     if (kDebugMode) {
       print(_usernameController.text);
       print(_passController.text);
     }
-    // Future<String> token = login("user1", "CliBBQ17Sm7PIQ7");
-    Future<String> token = login("averrous", "123456");
+    Future<String> token = login("user1", "CliBBQ17Sm7PIQ7");
+    // Future<String> token = login("averrous", "123456");
     // Future<String> token =
     //     login(_usernameController.text, _passController.text);
     token.then((val) {
-      // user = User(_usernameController.text, val);
-      user = User("averrous", val);
+      // user = User(_usernameController.text, val, _passController.text);
+      user = User("user1", val, "CliBBQ17Sm7PIQ7");
       if (kDebugMode) {
         print(val);
       }
     });
-    widget.updateLogin(true);
+    final MyHomePageState? homePageState =
+        context.findAncestorStateOfType<MyHomePageState>();
+    if (homePageState != null) {
+      homePageState.updateLoginStatus(true);
+    } else {
+      if (kDebugMode) {
+        print("ggl");
+      }
+    }
   }
 
   @override
@@ -169,38 +184,38 @@ class LoginState extends State<LoginPage> {
                 const SizedBox(
                   height: 15,
                 ),
-                Row(
-                  children: [
-                    const Text(
-                      'Don’t have an account?',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 0, 156, 133),
-                        fontSize: 13,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 2.5,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        widget.controller.animateToPage(1,
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.ease);
-                      },
-                      child: const Text(
-                        'Sign Up',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 0, 156, 133),
-                          fontSize: 13,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   children: [
+                //     const Text(
+                //       'Don’t have an account?',
+                //       style: TextStyle(
+                //         color: Color.fromARGB(255, 0, 156, 133),
+                //         fontSize: 13,
+                //         fontFamily: 'Poppins',
+                //         fontWeight: FontWeight.w500,
+                //       ),
+                //     ),
+                //     const SizedBox(
+                //       width: 2.5,
+                //     ),
+                //     InkWell(
+                //       onTap: () {
+                //         widget.controller.animateToPage(1,
+                //             duration: const Duration(milliseconds: 500),
+                //             curve: Curves.ease);
+                //       },
+                //       child: const Text(
+                //         'Sign Up',
+                //         style: TextStyle(
+                //           color: Color.fromARGB(255, 0, 156, 133),
+                //           fontSize: 13,
+                //           fontFamily: 'Poppins',
+                //           fontWeight: FontWeight.w500,
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 const SizedBox(
                   height: 15,
                 ),

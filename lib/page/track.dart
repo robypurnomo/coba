@@ -3,6 +3,7 @@ import 'package:coba/api/api.dart';
 import 'package:coba/variables/api_key.dart';
 import 'package:coba/variables/globals.dart';
 import 'package:coba/class/session.dart';
+import 'package:coba/variables/ui_material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
@@ -17,8 +18,12 @@ class TrackPage extends StatefulWidget {
 
 class TrackPageState extends State<TrackPage> {
   bool isTracking = false;
+  bool doneTracking = false;
   int secondsElapsed = 0;
   Timer? timer;
+  Color start = Colors.transparent;
+  Color stop = Colors.black;
+  Color save = Colors.transparent;
   late Future<Session> session;
   final myController = TextEditingController();
   WebSocketChannel channel =
@@ -35,9 +40,14 @@ class TrackPageState extends State<TrackPage> {
   void startTracking() {
     setState(() {
       isTracking = true;
+      doneTracking = false;
       secondsElapsed = 0;
       session = startSession();
       channel = WebSocketChannel.connect(Uri.parse('$wsUrl/ws/stream'));
+
+      start = Colors.black;
+      stop = Colors.transparent;
+      save = Colors.transparent;
     });
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
@@ -53,7 +63,12 @@ class TrackPageState extends State<TrackPage> {
       });
 
       isTracking = false;
+      doneTracking = true;
       timer?.cancel();
+
+      start = Colors.transparent;
+      stop = Colors.black;
+      save = Colors.black;
     });
   }
 
@@ -72,7 +87,7 @@ class TrackPageState extends State<TrackPage> {
           content: TextField(
             controller: myController,
             decoration: const InputDecoration(
-              border: OutlineInputBorder(),
+              // border: OutlineInputBorder(),
               hintText: 'Masukkan nama',
             ),
           ),
@@ -107,95 +122,218 @@ class TrackPageState extends State<TrackPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Tracker is ${isTracking ? 'Running' : 'Stopped'}',
-              style: const TextStyle(fontSize: 24),
+        backgroundColor: Colors.black,
+        body: Stack(children: [
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF908c8c),
+                    Color(0xFF2c2c2c),
+                  ],
+                  begin: FractionalOffset(0.0, 0.0),
+                  end: FractionalOffset(0.0, 1.0),
+                  stops: [0.0, 1.0],
+                  tileMode: TileMode.clamp),
             ),
-            const SizedBox(height: 20),
-            Text(
-              'Time Elapsed: ${formatTime(secondsElapsed)}',
-              style: const TextStyle(fontSize: 20),
-            ),
-            const SizedBox(height: 40),
-            // FutureBuilder<WebSocketChannel>(
-            //   future: connectSession(),
-            //   builder: (context, snapshot) {
-            //     if (snapshot.hasData) {
-            //       return
-            //     }
-            //     // By default, show a loading spinner.
-            //     return const Center(
-            //       child: CircularProgressIndicator(),
-            //     );
-            //   },
-            // ),
-            Container(
-                margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-                child: StreamBuilder(
-                  stream: channel.stream,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      if (kDebugMode) {
-                        print("data : ${snapshot.data}");
-                      }
-                      // final message = snapshot.data
-                      //     as List<MqttReceivedMessage<MqttMessage?>>?;
-                      // final recvMessage =
-                      //     message![0].payload as MqttPublishMessage;
-                      img.Image image = img
-                          .decodeJpg(snapshot.data as Uint8List) as img.Image;
-                      return Image.memory(
-                        img.encodeJpg(image),
-                        gaplessPlayback: true,
-                      );
-                    } else {
-                      if (kDebugMode) {
-                        print("null");
-                      }
-                      // return Text('${snapshot.data}');
-
-                      // return const Center(
-                      //     child: CircularProgressIndicator(
-                      //         valueColor:
-                      //             AlwaysStoppedAnimation<Color>(Colors.black)));
-                      return Center(
-                        child: Image.asset(
-                          "assets/images/A_black_image.jpg",
-                          // width: 413,
-                          // height: 457,
-                        ),
-                      );
-                    }
-                  },
-                )),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ElevatedButton(
-                  onPressed: isTracking ? null : startTracking,
-                  child: const Text('Start'),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                  width: MediaQuery.of(context).size.width,
                 ),
-                const SizedBox(width: 20),
-                ElevatedButton(
-                  onPressed: isTracking ? stopTracking : null,
-                  child: const Text('Stop'),
+                Container(
+                    height: 50,
+                    width: 50,
+                    margin: const EdgeInsets.only(top: 40, left: 40),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      onPressed: () => {Navigator.pop(context)},
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.black,
+                        // size: 50,
+                      ),
+                    )),
+                Container(
+                    margin: const EdgeInsets.only(
+                        left: 40, top: 80, bottom: 20, right: 40),
+                    child: Center(
+                      child: Text(
+                        'Tracker is ${isTracking ? 'Running' : 'Stopped'}',
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 34,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.only(left: 40, top: 20, right: 40),
+                  padding: const EdgeInsets.all(5),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15),
+                    ),
+                  ),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15.0),
+                      child: StreamBuilder(
+                        stream: channel.stream,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            if (kDebugMode) {
+                              print("data : ${snapshot.data}");
+                            }
+                            img.Image image =
+                                img.decodeJpg(snapshot.data as Uint8List)
+                                    as img.Image;
+                            return Image.memory(
+                              img.encodeJpg(image),
+                              gaplessPlayback: true,
+                            );
+                          } else {
+                            if (kDebugMode) {
+                              print("null");
+                            }
+                            return Center(
+                              child: Image.asset(
+                                "assets/images/A_black_image.jpg",
+                                // width: 413,
+                                // height: 457,
+                              ),
+                            );
+                          }
+                        },
+                      )),
                 ),
-                const SizedBox(width: 20),
-                ElevatedButton(
-                  onPressed: isTracking ? null : saveTrackingData,
-                  child: const Text('Save'),
+                Container(
+                  margin: const EdgeInsets.only(
+                      left: 40.0, right: 40.0, bottom: 25.0, top: 25),
+                  decoration: const BoxDecoration(
+                    color: lightGreen,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                          width: MediaQuery.of(context).size.width * 0.45,
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, top: 10, bottom: 10),
+                          decoration: const BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                          ),
+                          child: const Center(
+                              child: Text(
+                            "Time elapsed",
+                            style: TextStyle(
+                                color: lightGreen,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ))),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.35,
+                          child: Center(
+                            child: Text(
+                              formatTime(secondsElapsed),
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )),
+                    ],
+                  ),
                 ),
               ],
             ),
-          ],
+          ),
+          Positioned(bottom: 0, child: buildBottomNavigationBar(context))
+        ]));
+  }
+
+  Widget buildBottomNavigationBar(BuildContext context) {
+    return Container(
+        height: 75,
+        margin: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 25.0),
+        decoration: const BoxDecoration(
+          color: lightGreen,
+          borderRadius: BorderRadius.all(
+            Radius.circular(50),
+          ),
         ),
-      ),
-    );
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                  height: 75,
+                  width: MediaQuery.of(context).size.width * 0.32,
+                  decoration: BoxDecoration(
+                    color: start,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(40),
+                    ),
+                  ),
+                  child: TextButton(
+                    onPressed: isTracking ? null : startTracking,
+                    child: const Text(
+                      "Start",
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                  )),
+              Container(
+                  height: 75,
+                  width: MediaQuery.of(context).size.width * 0.32,
+                  decoration: BoxDecoration(
+                    color: stop,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(40),
+                    ),
+                  ),
+                  child: TextButton(
+                    onPressed: isTracking ? stopTracking : null,
+                    child: const Text("Stop",
+                        style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black)),
+                  )),
+              Container(
+                  height: 75,
+                  width: MediaQuery.of(context).size.width * 0.32,
+                  decoration: BoxDecoration(
+                    color: start,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(40),
+                    ),
+                  ),
+                  child: TextButton(
+                    onPressed: doneTracking ? saveTrackingData : null,
+                    child: Text("Save",
+                        style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: save)),
+                  )),
+            ],
+          ),
+        ));
   }
 
   @override

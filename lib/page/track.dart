@@ -258,10 +258,9 @@ class TrackPageState extends State<TrackPage> {
         duration: const Duration(milliseconds: 200),
         height: 75,
         margin: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 25.0),
-        decoration: BoxDecoration(
-          color:
-              (isTracking || !doneTracking == true) ? Colors.black : lightGreen,
-          borderRadius: const BorderRadius.all(
+        decoration: const BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.all(
             Radius.circular(50),
           ),
         ),
@@ -312,8 +311,7 @@ class TrackPageState extends State<TrackPage> {
                   height: 75,
                   width: MediaQuery.of(context).size.width * 0.32,
                   decoration: BoxDecoration(
-                    color:
-                        isTracking == true ? Colors.black : Colors.transparent,
+                    color: doneTracking == true ? lightGreen : Colors.black,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(40),
                     ),

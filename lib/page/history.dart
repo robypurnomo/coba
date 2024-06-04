@@ -176,7 +176,7 @@ class HistoryPageState extends State<HistoryPage> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return ListView.builder(
-                        itemCount: snapshot.data!.length,
+                        itemCount: snapshot.data!.length - 1,
                         itemBuilder: (context, index) {
                           return Container(
                             margin: const EdgeInsets.only(top: 10.0),
@@ -196,7 +196,11 @@ class HistoryPageState extends State<HistoryPage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        snapshot.data![index].startAt
+                                        snapshot
+                                            .data![snapshot.data!.length -
+                                                index -
+                                                2]
+                                            .startAt
                                             .toString(),
                                         style: const TextStyle(
                                           fontSize: 12,
@@ -204,7 +208,12 @@ class HistoryPageState extends State<HistoryPage> {
                                         ),
                                       ),
                                       Text(
-                                        snapshot.data![index].name.toString(),
+                                        snapshot
+                                            .data![snapshot.data!.length -
+                                                index -
+                                                2]
+                                            .name
+                                            .toString(),
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 28,
@@ -243,7 +252,11 @@ class HistoryPageState extends State<HistoryPage> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => DetailHistoryPage(
-                                          snapshot.data![index].id),
+                                          snapshot
+                                              .data![snapshot.data!.length -
+                                                  index -
+                                                  2]
+                                              .id),
                                     ),
                                   );
                                 },

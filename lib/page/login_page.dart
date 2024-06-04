@@ -30,26 +30,43 @@ class LoginState extends State<LoginPage> {
       print(_usernameController.text);
       print(_passController.text);
     }
-    Future<String> token = login("user1", "CliBBQ17Sm7PIQ7");
+    // Future<String> token = login("user1", "CliBBQ17Sm7PIQ7");
     // Future<String> token = login("averrous", "123456");
-    // Future<String> token =
-    //     login(_usernameController.text, _passController.text);
+    Future<String> token =
+        login(_usernameController.text, _passController.text);
     token.then((val) {
-      // user = User(_usernameController.text, val, _passController.text);
-      user = User("user1", val, "CliBBQ17Sm7PIQ7");
-      if (kDebugMode) {
-        print(val);
+      if (val == '') {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Error"),
+              content: const Text("Username or password incorrect"),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Ok"),
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        user = User(_usernameController.text, val, _passController.text);
+        // user = User("user1", val, "CliBBQ17Sm7PIQ7");
+        final MyHomePageState? homePageState =
+            context.findAncestorStateOfType<MyHomePageState>();
+        if (homePageState != null) {
+          homePageState.updateLoginStatus(true);
+        } else {
+          if (kDebugMode) {
+            print("ggl");
+          }
+        }
       }
     });
-    final MyHomePageState? homePageState =
-        context.findAncestorStateOfType<MyHomePageState>();
-    if (homePageState != null) {
-      homePageState.updateLoginStatus(true);
-    } else {
-      if (kDebugMode) {
-        print("ggl");
-      }
-    }
   }
 
   @override

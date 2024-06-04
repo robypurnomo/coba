@@ -254,12 +254,14 @@ class TrackPageState extends State<TrackPage> {
   }
 
   Widget buildBottomNavigationBar(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
         height: 75,
         margin: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 25.0),
-        decoration: const BoxDecoration(
-          color: lightGreen,
-          borderRadius: BorderRadius.all(
+        decoration: BoxDecoration(
+          color:
+              (isTracking || !doneTracking == true) ? Colors.black : lightGreen,
+          borderRadius: const BorderRadius.all(
             Radius.circular(50),
           ),
         ),
@@ -272,17 +274,16 @@ class TrackPageState extends State<TrackPage> {
                   height: 75,
                   width: MediaQuery.of(context).size.width * 0.32,
                   decoration: BoxDecoration(
-                    color:
-                        isTracking == true ? Colors.black : Colors.transparent,
+                    color: isTracking == true ? Colors.black : lightGreen,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(40),
                     ),
                   ),
                   child: TextButton(
                     onPressed: isTracking ? null : startTracking,
-                    child: const Text(
-                      "Start",
-                      style: TextStyle(
+                    child: Text(
+                      (doneTracking == true) ? "Restart" : "Start",
+                      style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                           color: Colors.black),
@@ -293,8 +294,7 @@ class TrackPageState extends State<TrackPage> {
                   height: 75,
                   width: MediaQuery.of(context).size.width * 0.32,
                   decoration: BoxDecoration(
-                    color:
-                        isTracking == true ? Colors.transparent : Colors.black,
+                    color: isTracking == true ? lightGreen : Colors.black,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(40),
                     ),
@@ -320,13 +320,11 @@ class TrackPageState extends State<TrackPage> {
                   ),
                   child: TextButton(
                     onPressed: doneTracking ? saveTrackingData : null,
-                    child: Text("Save",
+                    child: const Text("Save",
                         style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: doneTracking == true
-                                ? Colors.black
-                                : Colors.transparent)),
+                            color: Colors.black)),
                   )),
             ],
           ),

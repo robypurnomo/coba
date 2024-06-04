@@ -1,4 +1,5 @@
 import 'package:coba/page/login_page.dart';
+import 'package:coba/page/splash_screen.dart';
 import 'package:flutter/foundation.dart';
 // import 'package:coba/variables/ui_material.dart';
 import 'package:flutter/material.dart';
@@ -148,7 +149,7 @@ class MyHomePageState extends State<MyHomePage> {
       },
       child: Navigator(
         key: widget._navigatorKey,
-        initialRoute: '/',
+        initialRoute: '/splash',
         onGenerateRoute: (RouteSettings settings) {
           WidgetBuilder builder;
           switch (settings.name) {
@@ -158,9 +159,12 @@ class MyHomePageState extends State<MyHomePage> {
                   return const HistoryPage();
                 } else {
                   return const LoginPage();
+                  // return const SplashScreen();
                 }
               };
               break;
+            case '/splash':
+              builder = (_) => const SplashScreen();
             default:
               throw Exception('Invalid route: ${settings.name}');
           }

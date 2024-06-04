@@ -67,11 +67,11 @@ class LoginState extends State<LoginPage> {
                         style: TextStyle(
                           fontSize: 100,
                           fontWeight: FontWeight.w500,
-                          color: Color(0xFF1434F4),
+                          color: blue,
                         ))),
                 const Divider(
                   thickness: 3,
-                  color: Color(0xFF1434F4),
+                  color: blue,
                   indent: 13,
                   endIndent: 13,
                 ),
@@ -81,7 +81,7 @@ class LoginState extends State<LoginPage> {
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w500,
-                          color: Color(0xFF1434F4),
+                          color: blue,
                         ))),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -96,7 +96,7 @@ class LoginState extends State<LoginPage> {
                         controller: _usernameController,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                          color: Color(0xFF1434F4),
+                          color: blue,
                           fontSize: 15,
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w400,
@@ -104,7 +104,7 @@ class LoginState extends State<LoginPage> {
                         decoration: const InputDecoration(
                           labelText: 'Username',
                           labelStyle: TextStyle(
-                            color: Color(0xFF1434F4),
+                            color: blue,
                             fontSize: 15,
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w600,
@@ -113,14 +113,14 @@ class LoginState extends State<LoginPage> {
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(
                               width: 1,
-                              color: Color(0xFF1434F4),
+                              color: blue,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(
                               width: 1,
-                              color: Color(0xFF1434F4),
+                              color: blue,
                             ),
                           ),
                         ),
@@ -132,7 +132,7 @@ class LoginState extends State<LoginPage> {
                         controller: _passController,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                          color: Color(0xFF1434F4),
+                          color: blue,
                           fontSize: 15,
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w400,
@@ -140,7 +140,7 @@ class LoginState extends State<LoginPage> {
                         decoration: const InputDecoration(
                           labelText: 'Password',
                           labelStyle: TextStyle(
-                            color: Color(0xFF1434F4),
+                            color: blue,
                             fontSize: 15,
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w600,
@@ -149,14 +149,14 @@ class LoginState extends State<LoginPage> {
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(
                               width: 1,
-                              color: Color(0xFF1434F4),
+                              color: blue,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(
                               width: 1,
-                              color: Color(0xFF1434F4),
+                              color: blue,
                             ),
                           ),
                         ),

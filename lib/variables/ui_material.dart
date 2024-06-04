@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 const Color green = Color.fromARGB(255, 0, 156, 133);
 const Color lightGreen = Color(0xffB2F562);
 const Color grey = Color(0xff9E9E9E);
-const Color blue = Color(0xff1434F4);
+const Color blue = Color(0xFF1434F4);
 
 // Size
 // const double height = MediaQuery.of(context).size.width * 0.65;

@@ -57,49 +57,57 @@ class LoginState extends State<LoginPage> {
       backgroundColor: Colors.white,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 15, top: 15),
-            child: Image.asset(
-              "assets/images/image-1.jpg",
-              width: 413,
-              height: 457,
-            ),
+        children: <Widget>[
+          const Padding(
+            padding: EdgeInsets.only(left: 13, top: 56),
+            child: Text(
+              'Log In.', 
+              style: TextStyle(
+                fontSize: 100, 
+                fontWeight: FontWeight.w500,
+                color: Color(0xFF1434F4),
+              )
+            )
           ),
-          const SizedBox(
-            height: 18,
+          const Divider(
+            thickness: 3,
+            color: Color(0xFF1434F4),
+            indent: 13,
+            endIndent: 13,
+          ),
+          const Padding(
+            padding: EdgeInsets.only(left: 300, top: 0),
+            child: Text(
+              'Are you ready?', 
+              style: TextStyle(
+                fontSize: 17, 
+                fontWeight: FontWeight.w500,
+                color: Color(0xFF1434F4),
+              )
+            )
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Column(
               textDirection: TextDirection.ltr,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Log In',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 0, 156, 133),
-                    fontSize: 27,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
                 const SizedBox(
-                  height: 50,
+                  height: 90,
                 ),
                 TextField(
                   controller: _usernameController,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                    color: Color.fromARGB(255, 0, 156, 133),
-                    fontSize: 13,
+                    color: Color(0xFF1434F4),
+                    fontSize: 15,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w400,
                   ),
                   decoration: const InputDecoration(
                     labelText: 'Username',
                     labelStyle: TextStyle(
-                      color: Color.fromARGB(255, 0, 156, 133),
+                      color: Color(0xFF1434F4),
                       fontSize: 15,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600,
@@ -108,14 +116,14 @@ class LoginState extends State<LoginPage> {
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       borderSide: BorderSide(
                         width: 1,
-                        color: Color.fromARGB(255, 0, 156, 133),
+                        color: Color(0xFF1434F4),
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       borderSide: BorderSide(
                         width: 1,
-                        color: Color.fromARGB(255, 0, 112, 94),
+                        color: Color(0xFF1434F4),
                       ),
                     ),
                   ),
@@ -127,15 +135,15 @@ class LoginState extends State<LoginPage> {
                   controller: _passController,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                    color: Color.fromARGB(255, 0, 156, 133),
-                    fontSize: 13,
+                    color: Color(0xFF1434F4),
+                    fontSize: 15,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w400,
                   ),
                   decoration: const InputDecoration(
                     labelText: 'Password',
                     labelStyle: TextStyle(
-                      color: Color.fromARGB(255, 0, 156, 133),
+                      color: Color(0xFF1434F4),
                       fontSize: 15,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600,
@@ -144,20 +152,20 @@ class LoginState extends State<LoginPage> {
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       borderSide: BorderSide(
                         width: 1,
-                        color: Color.fromARGB(255, 0, 156, 133),
+                        color: Color(0xFF1434F4),
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       borderSide: BorderSide(
                         width: 1,
-                        color: Color.fromARGB(255, 0, 156, 133),
+                        color: Color(0xFF1434F4),
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(
-                  height: 25,
+                  height: 200,
                 ),
                 ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -167,13 +175,13 @@ class LoginState extends State<LoginPage> {
                     child: ElevatedButton(
                       onPressed: () => signin(),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 0, 156, 133),
+                        backgroundColor: const Color(0xFFB2F562),
                       ),
                       child: const Text(
                         'Sign In',
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
+                          color: Colors.black,
+                          fontSize: 17,
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
                         ),
@@ -216,18 +224,6 @@ class LoginState extends State<LoginPage> {
                 //     ),
                 //   ],
                 // ),
-                const SizedBox(
-                  height: 15,
-                ),
-                const Text(
-                  'Forget Password?',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 0, 156, 133),
-                    fontSize: 13,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
               ],
             ),
           ),

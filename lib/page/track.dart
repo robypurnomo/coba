@@ -21,9 +21,6 @@ class TrackPageState extends State<TrackPage> {
   bool doneTracking = false;
   int secondsElapsed = 0;
   Timer? timer;
-  Color start = Colors.transparent;
-  Color stop = Colors.black;
-  Color save = Colors.transparent;
   late Future<Session> session;
   final myController = TextEditingController();
   WebSocketChannel channel =
@@ -44,10 +41,6 @@ class TrackPageState extends State<TrackPage> {
       secondsElapsed = 0;
       session = startSession();
       channel = WebSocketChannel.connect(Uri.parse('$wsUrl/ws/stream'));
-
-      start = Colors.black;
-      stop = Colors.transparent;
-      save = Colors.transparent;
     });
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
@@ -65,10 +58,6 @@ class TrackPageState extends State<TrackPage> {
       isTracking = false;
       doneTracking = true;
       timer?.cancel();
-
-      start = Colors.transparent;
-      stop = Colors.black;
-      save = Colors.black;
     });
   }
 
@@ -278,11 +267,13 @@ class TrackPageState extends State<TrackPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
+              AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
                   height: 75,
                   width: MediaQuery.of(context).size.width * 0.32,
                   decoration: BoxDecoration(
-                    color: start,
+                    color:
+                        isTracking == true ? Colors.black : Colors.transparent,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(40),
                     ),
@@ -297,11 +288,13 @@ class TrackPageState extends State<TrackPage> {
                           color: Colors.black),
                     ),
                   )),
-              Container(
+              AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
                   height: 75,
                   width: MediaQuery.of(context).size.width * 0.32,
                   decoration: BoxDecoration(
-                    color: stop,
+                    color:
+                        isTracking == true ? Colors.transparent : Colors.black,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(40),
                     ),
@@ -314,11 +307,13 @@ class TrackPageState extends State<TrackPage> {
                             fontWeight: FontWeight.bold,
                             color: Colors.black)),
                   )),
-              Container(
+              AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
                   height: 75,
                   width: MediaQuery.of(context).size.width * 0.32,
                   decoration: BoxDecoration(
-                    color: start,
+                    color:
+                        isTracking == true ? Colors.black : Colors.transparent,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(40),
                     ),
@@ -329,7 +324,9 @@ class TrackPageState extends State<TrackPage> {
                         style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: save)),
+                            color: doneTracking == true
+                                ? Colors.black
+                                : Colors.transparent)),
                   )),
             ],
           ),

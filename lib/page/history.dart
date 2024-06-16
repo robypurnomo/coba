@@ -63,7 +63,7 @@ class HistoryPageState extends State<HistoryPage> {
                 color: lightGreen,
               ),
               Container(
-                height: 50,
+                height: 65,
                 margin: const EdgeInsets.only(bottom: 10.0),
                 width: MediaQuery.of(context).size.width * 1,
                 decoration: const BoxDecoration(
@@ -71,6 +71,32 @@ class HistoryPageState extends State<HistoryPage> {
                   borderRadius: BorderRadius.all(
                     Radius.circular(50),
                   ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                        width: 75,
+                        height: 65,
+                        decoration: const BoxDecoration(
+                          color: lightGreen,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(25),
+                          ),
+                        ),
+                        child: IconButton(
+                          onPressed: () => {
+                            setState(() {
+                              sessionHistory = getSessionList();
+                            })
+                          },
+                          icon: const Icon(
+                            Icons.refresh,
+                            color: Colors.black,
+                            // size: 50,
+                          ),
+                        ))
+                  ],
                 ),
               ),
               Card(

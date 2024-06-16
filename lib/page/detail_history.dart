@@ -142,7 +142,7 @@ class DetailHistoryState extends State<DetailHistoryPage> {
                                                     videoPlayerController:
                                                         VideoPlayerController
                                                             .networkUrl(Uri.parse(
-                                                                ("${apiUrl}static/${snapshot.data![index].videoUrl}")))),
+                                                                ("${videoUrl}static/${snapshot.data![index].videoUrl}")))),
                                               ),
                                             )),
                                         Text(

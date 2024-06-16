@@ -36,6 +36,9 @@ class LoginState extends State<LoginPage> {
         login(_usernameController.text, _passController.text);
     token.then((val) {
       if (val == '') {
+        if (kDebugMode) {
+          print("gagal");
+        }
         showDialog(
           context: context,
           builder: (BuildContext context) {

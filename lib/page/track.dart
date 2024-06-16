@@ -6,7 +6,7 @@ import 'package:coba/class/session.dart';
 import 'package:coba/variables/ui_material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:image/image.dart' as img;
+// import 'package:image/image.dart' as img;
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class TrackPage extends StatefulWidget {
@@ -180,11 +180,12 @@ class TrackPageState extends State<TrackPage> {
                             if (kDebugMode) {
                               print("data : ${snapshot.data}");
                             }
-                            img.Image image =
-                                img.decodeJpg(snapshot.data as Uint8List)
-                                    as img.Image;
+                            // img.Image image =
+                            //     img.decodeJpg(snapshot.data as Uint8List)
+                            //         as img.Image;
                             return Image.memory(
-                              img.encodeJpg(image),
+                              // img.encodeJpg(image),
+                              snapshot.data as Uint8List,
                               gaplessPlayback: true,
                             );
                           } else {
